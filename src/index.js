@@ -229,7 +229,7 @@ async function run() {
 	}
 
 	try {
-		let res = getVersionSuffix(inputs.EventData.ref_name, inputs.EventData.sha, inputs.EventData.run_number, inputs.branch_overrides);
+		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha, inputs.event_data.run_number, inputs.branch_overrides);
 
 		core.setOutput("version_new", `${inputs.version}${res.getNewVersion()}`);
 		core.setOutput("version_suffix", res.suffix);
