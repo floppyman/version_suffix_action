@@ -236,7 +236,7 @@ async function run() {
 		core.setOutput("version_latest_commit", res.lastestCommit);
 		core.setOutput("version_version_only", res.versionOnly);
 	} catch (error) {
-		core.error("Failed making request to NTFY service");
+		core.error("Failed to create the next version");
 		if (error.response && error.response.data) core.error(JSON.stringify(request, null, 4));
 		core.setFailed(error.message);
 	}
