@@ -126,7 +126,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 		lastestCommit: latestCommit,
 		versionOnly: false,
 
-		getNewVersion: function () {
+		getNewVersion: function() {
 			if (this.versionOnly) return "";
 			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
 		},
