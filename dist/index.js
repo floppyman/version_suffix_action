@@ -31927,15 +31927,14 @@ async function getEventData(isDebug) {
 		core.info("");
 	}
 
+	let refSplit = payload.ref.split("/");
+
 	return {
 		run_number: context.run_number,
 		sha: context.sha,
 		sha_short: context.sha.slice(-7),
-		ref: context.ref,
-		ref_name: context.ref_name,
-		ref_type: context.ref_type,
-		head_ref: context.head_ref,
-		base_ref: context.base_ref,
+		ref: payload.ref,
+		ref_name: refSplit[refSplit.length - 1],
 	};
 }
 
@@ -32032,7 +32031,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 		lastestCommit: latestCommit,
 		versionOnly: false,
 
-		getNewVersion: function() {
+		getNewVersion: function () {
 			if (this.versionOnly) return "";
 			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
 		},
@@ -32122,7 +32121,7 @@ async function run() {
 			core.info("");
 			core.info("INPUT VALUES:");
 			core.info(`  Version:          ${inputs.version}`);
-			core.info(`  Branch Overrides: ${inputs.branch_overrides}`);
+			core.info(`  Branch Overrides: ${JSON.stringify(inputs.branch_overrides)}`);
 			core.info("");
 		}
 
@@ -32166,9 +32165,6 @@ run();
  * @property {string} sha_short
  * @property {string} ref
  * @property {string} ref_name
- * @property {string} ref_type
- * @property {string} head_ref
- * @property {string} base_ref
  */
 
 /**
