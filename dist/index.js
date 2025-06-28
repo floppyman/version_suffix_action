@@ -31934,7 +31934,7 @@ async function getEventData(isDebug) {
 		sha: context.sha,
 		sha_short: context.sha.slice(-7),
 		ref: payload.ref,
-		ref_name: refSplit[refSplit.length - 1],
+		ref_name: refSplit.length >= 3 ? refSplit[2] : "",
 	};
 }
 
@@ -32003,12 +32003,13 @@ const igbBom = 1;
 const igbNormal = 2;
 /**
  * @param {string} gitBranch
- * @param {string[]} options
+ * @param {string} bom
+ * @param {string[]} defOptions
  * @returns {number} 0 == not match, 1 == bom match, 2 == default match
  */
 function isGitBranch(gitBranch, bom, defOptions) {
 	if (bom !== null && bom !== "") {
-		if (gitBranch.toLowerCase().startsWith(option)) return igbBom;
+		if (gitBranch.toLowerCase().startsWith(bom)) return igbBom;
 	}
 
 	for (let i = 0; i < defOptions.length; i++) {
@@ -32031,7 +32032,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 		latestCommit: latestCommit,
 		versionOnly: false,
 
-		getNewVersion: function() {
+		getNewVersion: function () {
 			if (this.versionOnly) return "";
 			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
 		},
