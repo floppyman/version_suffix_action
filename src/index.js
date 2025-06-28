@@ -25,7 +25,7 @@ async function getEventData(isDebug) {
 	let refSplit = payload.ref.split("/");
 
 	return {
-		run_number: context.run_number,
+		run_number: context.runNumber,
 		sha: context.sha,
 		sha_short: context.sha.slice(-7),
 		ref: payload.ref,
