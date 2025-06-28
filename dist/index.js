@@ -31930,7 +31930,7 @@ async function getEventData(isDebug) {
 	let refSplit = payload.ref.split("/");
 
 	return {
-		run_number: context.run_number,
+		run_number: context.runNumber,
 		sha: context.sha,
 		sha_short: context.sha.slice(-7),
 		ref: payload.ref,
@@ -32031,7 +32031,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 		lastestCommit: latestCommit,
 		versionOnly: false,
 
-		getNewVersion: function () {
+		getNewVersion: function() {
 			if (this.versionOnly) return "";
 			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
 		},
@@ -32139,7 +32139,7 @@ async function run() {
 		core.info(`ref_name: ${inputs.event_data.ref_name}`);
 		core.info(`sha: ${inputs.event_data.sha}`);
 		core.info(`run_number: ${inputs.event_data.run_number}`);
-		
+
 		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha, inputs.event_data.run_number, inputs.branch_overrides);
 		let newVersion = `${inputs.version}${res.getNewVersion()}`;
 
