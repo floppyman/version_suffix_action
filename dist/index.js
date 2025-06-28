@@ -31954,7 +31954,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 		lastestCommit: latestCommit,
 		versionOnly: false,
 
-		getNewVersion: function () {
+		getNewVersion: function() {
 			if (this.versionOnly) return "";
 			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
 		},
@@ -32059,13 +32059,13 @@ async function run() {
 	try {
 		let res = getVersionSuffix(inputs.EventData.ref_name, inputs.EventData.sha, inputs.EventData.run_number, inputs.branch_overrides);
 
-		core.setOutput("VERSION_NEW", `${inputs.version}${res.getNewVersion()}`);
-		core.setOutput("VERSION_SUFFIX", res.suffix);
-		core.setOutput("VERSION_RUN_NUMBER", res.runNumber);
-		core.setOutput("VERSION_LATEST_COMMIT", res.lastestCommit);
-		core.setOutput("VERSION_VERSION_ONLY", res.versionOnly);
+		core.setOutput("version_new", `${inputs.version}${res.getNewVersion()}`);
+		core.setOutput("version_suffix", res.suffix);
+		core.setOutput("version_run_number", res.runNumber);
+		core.setOutput("version_latest_commit", res.lastestCommit);
+		core.setOutput("version_version_only", res.versionOnly);
 	} catch (error) {
-		core.error("Failed making request to NTFY service");
+		core.error("Failed to create the next version");
 		if (error.response && error.response.data) core.error(JSON.stringify(request, null, 4));
 		core.setFailed(error.message);
 	}
