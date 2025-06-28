@@ -1,6 +1,8 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 
+// require ./helper_functions.js
+
 /**
  * @param {boolean} isDebug
  * @returns {EventData}
