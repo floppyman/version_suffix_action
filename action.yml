@@ -1,0 +1,42 @@
+name: version_suffix_action
+
+description: Version Suffix generates the appropriate version number for different types of branches, and then provides ENV variables with the different parts, which can then be fetched in other steps later.
+
+# https://actions-cool.github.io/github-action-branding/
+branding:
+  icon: "hash"
+  color: "yellow"
+
+inputs:
+  version:
+    description: "The current SemVer version number"
+    required: true
+    default: ""
+  branch_overrides:
+    description: "Multiline definition of overrides to map branches to versions, supports for `feature, develop, master, release, bugfix, hotfix`, using a comma separated string with 4 values in format: <branch_to_override (string)>,<branch_name (string)>,<version_suffix (string)>,<return_version_only (bool)>"
+    required: false
+    default: ""
+  debug:
+    description: "Prints debug information for dev/troubleshooting"
+    required: false
+    default: "false"
+
+outputs:
+  VERSION_NEW:
+    description: "The full version string"
+  
+  VERSION_SUFFIX:
+    description: "The calculated suffix"
+  
+  VERSION_RUN_NUMBER:
+    description: "The calculated run number"
+  
+  VERSION_LATEST_COMMIT:
+    description: "The calculated latest commit hash (7 chars)"
+  
+  VERSION_VERSION_ONLY:
+    description: "If the version is version only or it contains the other values"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
