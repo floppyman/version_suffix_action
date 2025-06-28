@@ -25,19 +25,19 @@ debug:
 Output values can be accessed by getting them from the step using the step id like so `${{ steps.<ID_OF_STEP>.outputs.<NAME_OF_AN_OUTPUT> }}` in any of the subsequent steps.
 
 ```yaml
-VERSION_NEW:
+version_new:
   description: "The full version string"
 
-VERSION_SUFFIX:
+version_suffix:
   description: "The calculated suffix"
 
-VERSION_RUN_NUMBER:
+version_run_number:
   description: "The calculated run number"
 
-VERSION_LATEST_COMMIT:
+version_latest_commit:
   description: "The calculated latest commit hash (7 chars)"
 
-VERSION_VERSION_ONLY:
+version_version_only:
   description: "If the version is version only or it contains the other values"
 ```
 
@@ -53,7 +53,7 @@ VERSION_VERSION_ONLY:
 	version: "1.0.0"
 ```
 
-Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.VERSION_NEW }}`
+Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.version_new }}`
 
 ### Step with branch overrides
 
@@ -68,4 +68,4 @@ Then to get forexample the new full version string you can call `${{ steps.NextV
 	  "release,uat,uat,true"
 ```
 
-Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.VERSION_NEW }}`
+Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.version_new }}`

@@ -22,19 +22,19 @@ inputs:
     default: "false"
 
 outputs:
-  VERSION_NEW:
+  version_new:
     description: "The full version string"
   
-  VERSION_SUFFIX:
+  version_suffix:
     description: "The calculated suffix"
   
-  VERSION_RUN_NUMBER:
+  version_run_number:
     description: "The calculated run number"
   
-  VERSION_LATEST_COMMIT:
+  version_latest_commit:
     description: "The calculated latest commit hash (7 chars)"
   
-  VERSION_VERSION_ONLY:
+  version_version_only:
     description: "If the version is version only or it contains the other values"
 
 runs:
