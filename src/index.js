@@ -40,6 +40,7 @@ function getInputs() {
 	return {
 		debug: inputBool("debug"),
 		version: inputString("version", ""),
+		run_number_pad_size: inputInt("run_number_pad_size", 5),
 		branch_overrides: convertBranchOverridesToMap(inputMultiline("branch_overrides")),
 		event_data: {},
 	};
@@ -120,7 +121,7 @@ function isGitBranch(gitBranch, bom, defOptions) {
  * @param {BranchOverridesMap} bom
  * @returns {getVersionSuffixRes}
  */
-function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
+function getVersionSuffix(gitBranch, latestCommit, runNumber, runNumberPadSize, bom) {
 	var res = {
 		suffix: "-alpha",
 		runNumber: runNumber,
@@ -129,7 +130,10 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 
 		getNewVersion: function() {
 			if (this.versionOnly) return "";
-			return `${this.suffix}${this.runNumber}-${this.latestCommit}`;
+
+			let rns = this.runNumber.toString();
+			let rn = rns.length >= size ? rns : (Math.pow(10, runNumberPadSize) + Math.floor(this.runNumber)).toString().substring(1);
+			return `${this.suffix}${rn}-${this.latestCommit}`;
 		},
 	};
 
@@ -218,8 +222,9 @@ async function run() {
 		if (inputs.debug) {
 			core.info("");
 			core.info("INPUT VALUES:");
-			core.info(`  Version:          ${inputs.version}`);
-			core.info(`  Branch Overrides: ${JSON.stringify(inputs.branch_overrides)}`);
+			core.info(`  Version:             ${inputs.version}`);
+			core.info(`  Run Number Pad Size: ${inputs.run_number_pad_size}`);
+			core.info(`  Branch Overrides:    ${JSON.stringify(inputs.branch_overrides)}`);
 			core.info("");
 		}
 
@@ -232,7 +237,7 @@ async function run() {
 	}
 
 	try {
-		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha_short, inputs.event_data.run_number, inputs.branch_overrides);
+		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha_short, inputs.event_data.run_number, inputs.run_number_pad_size, inputs.branch_overrides);
 		let fullVersion = `${inputs.version}${res.getNewVersion()}`;
 
 		core.info("Results");
@@ -264,9 +269,10 @@ run();
 
 /**
  * @interface GetInputs
- * @property {boolean} number
+ * @property {boolean} debug
  * @property {string} version
  * @property {BranchOverridesMap} branch_overrides
+ * @property {number} run_number_pad_size
  * @property {EventDataObj} event_data
  */
 

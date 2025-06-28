@@ -16,6 +16,10 @@ inputs:
     description: "Multiline definition of overrides to map branches to versions, supports for `feature, develop, master, release, bugfix, hotfix`, using a comma separated string with 4 values in format: <branch_to_override (string)>,<branch_name (string)>,<version_suffix (string)>,<return_version_only (bool)>"
     required: false
     default: ""
+  run_number_pad_size:
+    description: "Number of zeros to pad left the run number for branches where `version_only` is false"
+    required: false
+    default: "5"
   debug:
     description: "Prints debug information for dev/troubleshooting"
     required: false
@@ -24,19 +28,14 @@ inputs:
 outputs:
   version_full:
     description: "The full version string"
-
   version_number:
     description: "The version that was added as input"
-  
   version_suffix:
     description: "The calculated suffix"
-  
   version_run_number:
     description: "The calculated run number"
-  
   version_latest_commit:
     description: "The calculated latest commit hash (7 chars)"
-  
   version_version_only:
     description: "If the version is version only or it contains the other values"
 

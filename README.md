@@ -15,6 +15,11 @@ branch_overrides:
   required: false
   default: ""
 
+run_number_pad_size:
+  description: "Number of zeros to pad left the run number for branches where `version_only` is false"
+  required: false
+  default: "5"
+
 debug:
   description: "Prints debug information for dev/troubleshooting"
   required: false
