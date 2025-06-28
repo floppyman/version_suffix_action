@@ -32136,15 +32136,12 @@ async function run() {
 	}
 
 	try {
-		core.info(`ref_name: ${inputs.event_data.ref_name}`);
-		core.info(`sha: ${inputs.event_data.sha}`);
-		core.info(`run_number: ${inputs.event_data.run_number}`);
-
-		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha, inputs.event_data.run_number, inputs.branch_overrides);
-		let newVersion = `${inputs.version}${res.getNewVersion()}`;
+		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha_short, inputs.event_data.run_number, inputs.branch_overrides);
+		let fullVersion = `${inputs.version}${res.getNewVersion()}`;
 
 		core.info("Results");
-		core.info(`version_new: ${newVersion}`);
+		core.info(`version_full: ${fullVersion}`);
+		core.info(`version_number: ${inputs.version}`);
 		core.info(`version_suffix: ${res.suffix}`);
 		core.info(`version_run_number: ${res.runNumber}`);
 		core.info(`version_latest_commit: ${res.latestCommit}`);
@@ -32152,7 +32149,8 @@ async function run() {
 		core.info("----------");
 
 		core.info(`Setting outputs ...`);
-		core.setOutput("version_new", newVersion);
+		core.setOutput("version_full", fullVersion);
+		core.setOutput("version_number", inputs.version);
 		core.setOutput("version_suffix", res.suffix);
 		core.setOutput("version_run_number", res.runNumber);
 		core.setOutput("version_latest_commit", res.latestCommit);

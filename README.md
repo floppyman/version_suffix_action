@@ -25,8 +25,11 @@ debug:
 Output values can be accessed by getting them from the step using the step id like so `${{ steps.<ID_OF_STEP>.outputs.<NAME_OF_AN_OUTPUT> }}` in any of the subsequent steps.
 
 ```yaml
-version_new:
+version_full:
   description: "The full version string"
+
+version_number:
+  description: "The version that was added as input"
 
 version_suffix:
   description: "The calculated suffix"
@@ -47,19 +50,19 @@ version_version_only:
 
 ```yaml
 - name: Calculate next version
-  id: NextVersion
+  id: next_version
   uses: floppyman/version_suffix_action@main
   with:
 	version: "1.0.0"
 ```
 
-Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.version_new }}`
+Then to get forexample the new full version string you can call `${{ steps.next_version.outputs.version_full }}`
 
 ### Step with branch overrides
 
 ```yaml
 - name: Calculate next version
-  id: NextVersion
+  id: next_version
   uses: floppyman/version_suffix_action@main
   with:
 	version: "1.0.0",
@@ -68,4 +71,4 @@ Then to get forexample the new full version string you can call `${{ steps.NextV
 	  "release,uat,uat,true"
 ```
 
-Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.version_new }}`
+Then to get forexample the new full version string you can call `${{ steps.next_version.outputs.version_full }}`

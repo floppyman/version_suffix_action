@@ -22,8 +22,11 @@ inputs:
     default: "false"
 
 outputs:
-  version_new:
+  version_full:
     description: "The full version string"
+
+  version_number:
+    description: "The version that was added as input"
   
   version_suffix:
     description: "The calculated suffix"
