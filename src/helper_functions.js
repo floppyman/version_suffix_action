@@ -49,7 +49,6 @@ function inputMultiline(key) {
 		required: false,
 		trimWhitespace: true
 	});
-	if (inp == "") return def;
 	return inp;
 }
 
