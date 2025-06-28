@@ -32028,7 +32028,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 	var res = {
 		suffix: "-alpha",
 		runNumber: runNumber,
-		lastestCommit: latestCommit,
+		latestCommit: latestCommit,
 		versionOnly: false,
 
 		getNewVersion: function() {
@@ -32147,7 +32147,7 @@ async function run() {
 		core.info(`version_new: ${newVersion}`);
 		core.info(`version_suffix: ${res.suffix}`);
 		core.info(`version_run_number: ${res.runNumber}`);
-		core.info(`version_latest_commit: ${res.lastestCommit}`);
+		core.info(`version_latest_commit: ${res.latestCommit}`);
 		core.info(`version_version_only: ${res.versionOnly}`);
 		core.info("----------");
 
@@ -32155,7 +32155,7 @@ async function run() {
 		core.setOutput("version_new", newVersion);
 		core.setOutput("version_suffix", res.suffix);
 		core.setOutput("version_run_number", res.runNumber);
-		core.setOutput("version_latest_commit", res.lastestCommit);
+		core.setOutput("version_latest_commit", res.latestCommit);
 		core.setOutput("version_version_only", res.versionOnly);
 
 		core.info(`Version generated`);
@@ -32206,7 +32206,7 @@ run();
  * @interface getVersionSuffixRes
  * @property {string} suffix
  * @property {number} runNumber
- * @property {string} lastestCommit
+ * @property {string} latestCommit
  * @property {string} versionOnly
  * @property {function} getNewVersion
  */
