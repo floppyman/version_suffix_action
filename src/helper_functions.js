@@ -16,7 +16,7 @@ function parseBool(inp) {
  * @param {string} key
  * @returns {boolean}
  */
-function getBoolInput(key) {
+function inputBool(key) {
 	return core.getBooleanInput(key, {
 		required: false,
 		trimWhitespace: true
@@ -30,7 +30,7 @@ function getBoolInput(key) {
  * @param {string} def
  * @returns {string}
  */
-function getStringInput(key, def) {
+function inputString(key, def) {
 	var inp = core.getInput(key, {
 		required: false,
 		trimWhitespace: true
@@ -44,7 +44,7 @@ function getStringInput(key, def) {
  * @param {string} key
  * @returns {string[]}
  */
-function getMultilineInput(key) {
+function inputMultiline(key) {
 	var inp = core.getMultilineInput(key, {
 		required: false,
 		trimWhitespace: true
@@ -60,7 +60,7 @@ function getMultilineInput(key) {
  * @param {number} def
  * @returns {number}
  */
-function getIntInput(key, def) {
+function inputInt(key, def) {
 	var inp = core.getInput(key, {
 		required: false,
 		trimWhitespace: true

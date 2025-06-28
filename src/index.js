@@ -39,9 +39,9 @@ async function getEventData(isDebug) {
  */
 function getInputs() {
 	return {
-		debug: getBoolInput("debug"),
-		version: getStringInput("version", ""),
-		branch_overrides: convertBranchOverridesToMap(getMultilineInput("branch_overrides")),
+		debug: inputBool("debug"),
+		version: inputString("version", ""),
+		branch_overrides: convertBranchOverridesToMap(inputMultiline("branch_overrides")),
 		event_data: {},
 	};
 }

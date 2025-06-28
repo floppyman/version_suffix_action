@@ -31827,8 +31827,87 @@ module.exports = parseParams
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
+/**
+ * Checks if input is TRUE or FALSE and returns appropriately, else it will throw and exception
+ * @param {string} inp
+ * @returns
+ */
+function parseBool(inp) {
+	var v = inp.trim().toUpperCase();
+	if (v === "TRUE" || v === "FALSE") return inp.toUpperCase() === "TRUE";
+	throw new Error("Input value is not correct format, but be either 'true' or 'false'");
+}
+
+/**
+ * Gets the input value of the boolean type in the YAML 1.2 "core schema" specification.
+ * Support boolean input list: `true | True | TRUE | false | False | FALSE` .
+ * The return value is also in boolean type.
+ * @param {string} key
+ * @returns {boolean}
+ */
+function inputBool(key) {
+	return core.getBooleanInput(key, {
+		required: false,
+		trimWhitespace: true
+	});
+}
+
+/**
+ * Gets the value of an input.  The value is also trimmed.
+ * Returns an empty string if the value is not defined.
+ * @param {string} key
+ * @param {string} def
+ * @returns {string}
+ */
+function inputString(key, def) {
+	var inp = core.getInput(key, {
+		required: false,
+		trimWhitespace: true
+	});
+	if (inp == "") return def;
+	return inp;
+}
+
+/**
+ * Gets the values of an multiline input.  Each value is also trimmed.
+ * @param {string} key
+ * @returns {string[]}
+ */
+function inputMultiline(key) {
+	var inp = core.getMultilineInput(key, {
+		required: false,
+		trimWhitespace: true
+	});
+	if (inp == "") return def;
+	return inp;
+}
+
+/**
+ * Gets the value of an input parsed as an Int.  The value is trimmed before parse.
+ * Returns the 'def' if empty string or parseInt failes.
+ * @param {string} key
+ * @param {number} def
+ * @returns {number}
+ */
+function inputInt(key, def) {
+	var inp = core.getInput(key, {
+		required: false,
+		trimWhitespace: true
+	});
+	if (inp == "") return def;
+	try {
+		return parseInt(inp);
+	} catch {
+		return def;
+	}
+
+	core.get;
+}
+
 const core = __nccwpck_require__(7484);
 const github = __nccwpck_require__(3228);
+
+
 
 /**
  * @param {boolean} isDebug
@@ -31866,9 +31945,9 @@ async function getEventData(isDebug) {
  */
 function getInputs() {
 	return {
-		debug: getBoolInput("debug"),
-		version: getStringInput("version", ""),
-		branch_overrides: convertBranchOverridesToMap(getMultilineInput("branch_overrides")),
+		debug: inputBool("debug"),
+		version: inputString("version", ""),
+		branch_overrides: convertBranchOverridesToMap(inputMultiline("branch_overrides")),
 		event_data: {},
 	};
 }
@@ -32118,6 +32197,8 @@ run();
  * @property {string} versionOnly
  * @property {function} getNewVersion
  */
+
+
 
 module.exports = __webpack_exports__;
 /******/ })()
