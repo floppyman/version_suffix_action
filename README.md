@@ -64,8 +64,8 @@ Then to get forexample the new full version string you can call `${{ steps.NextV
   with:
 	version: "1.0.0",
 	branch_overrides: |
-	  "feature,new_things,new,false"
-	  "release,rel,rel,true"
+	  "feature,thing,new,false"
+	  "release,uat,uat,true"
 ```
 
 Then to get forexample the new full version string you can call `${{ steps.NextVersion.outputs.VERSION_NEW }}`
