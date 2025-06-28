@@ -205,6 +205,8 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, bom) {
 }
 
 async function run() {
+	core.info(`Version Suffix Action`);
+
 	/** @type {GetInputs} */
 	let inputs = {};
 
@@ -229,13 +231,29 @@ async function run() {
 	}
 
 	try {
-		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha, inputs.event_data.run_number, inputs.branch_overrides);
+		core.info(`ref_name: ${inputs.event_data.ref_name}`);
+		core.info(`sha: ${inputs.event_data.sha}`);
+		core.info(`run_number: ${inputs.event_data.run_number}`);
 
-		core.setOutput("version_new", `${inputs.version}${res.getNewVersion()}`);
+		let res = getVersionSuffix(inputs.event_data.ref_name, inputs.event_data.sha, inputs.event_data.run_number, inputs.branch_overrides);
+		let newVersion = `${inputs.version}${res.getNewVersion()}`;
+
+		core.info("Results");
+		core.info(`version_new: ${newVersion}`);
+		core.info(`version_suffix: ${res.suffix}`);
+		core.info(`version_run_number: ${res.runNumber}`);
+		core.info(`version_latest_commit: ${res.lastestCommit}`);
+		core.info(`version_version_only: ${res.versionOnly}`);
+		core.info("----------");
+
+		core.info(`Setting outputs ...`);
+		core.setOutput("version_new", newVersion);
 		core.setOutput("version_suffix", res.suffix);
 		core.setOutput("version_run_number", res.runNumber);
 		core.setOutput("version_latest_commit", res.lastestCommit);
 		core.setOutput("version_version_only", res.versionOnly);
+
+		core.info(`Version generated`);
 	} catch (error) {
 		core.error("Failed to create the next version");
 		if (error.response && error.response.data) core.error(JSON.stringify(request, null, 4));
