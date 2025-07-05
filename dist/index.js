@@ -32034,10 +32034,7 @@ function getVersionSuffix(gitBranch, latestCommit, runNumber, runNumberPadSize, 
 		versionOnly: false,
 
 		getNewVersion: function() {
-			if (this.versionOnly) return "";
-
-			//let rns = this.runNumber.toString();
-			//let rn = rns.length >= runNumberPadSize ? rns : (Math.pow(10, runNumberPadSize) + Math.floor(this.runNumber)).toString().substring(1);
+			if (this.versionOnly) return `.${this.runNumber}`;
 			return `.${this.runNumber}${this.suffix}-${this.latestCommit}`;
 		},
 	};
